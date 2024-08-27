@@ -34,8 +34,9 @@ class NotificationCog(commands.Cog):
     @notification.command(name='resin', description='樹脂が200になる前に通知します')
     async def resin(self, 
                     ctx: discord.ApplicationContext,
-                    resin: Option[int, required=True, description="現在の樹脂量", max_value=199, min_value=1],
-                    times: Option[int, required=False, description="溢れる何分前に通知するか（未設定の場合は40分前）", max_value=120, min_value=1, default=40]):
+                    resin: Option(int, required=True, description="現在の樹脂量", max_value=199, min_value=1),
+                    times: Option(int, required=False, description="溢れる何分前に通知するか（未設定の場合は40分前）", max_value=120, min_value=1, default=40)
+        ):
         await ctx.response.defer(ephemeral=True)
         try:
             channel = notification.get_notification_channel(ctx.guild_id)
