@@ -20,7 +20,8 @@ MESSAGES = {
     441: "Enka.network（ビルドデータを取得するサービス）のサーバーに原因不明のエラーが発生しています。\nしばらくお待ちください。\n※原神ステータスBotの運営チームはこれについて確認ぐらいしか取れないです。\n詳しくはEnkaNetworkのTwitterを確認してください。\nhttps://twitter.com/EnkaNetwork"
 }
 
-async def load_profile(status:GenshinStatusModel, uid, interaction: discord.Interaction) -> GenshinStatusModel:
+
+async def load_profile(status: GenshinStatusModel, uid, interaction: discord.Interaction) -> GenshinStatusModel:
     try:
         await status.get_user(uid=int(uid))
     except client_exceptions.ClientResponseError as e:
@@ -43,7 +44,8 @@ async def load_profile(status:GenshinStatusModel, uid, interaction: discord.Inte
         raise e
     return status
 
-async def load_characters(status:GenshinStatusModel, interaction: discord.Interaction) -> GenshinStatusModel:
+
+async def load_characters(status: GenshinStatusModel, interaction: discord.Interaction) -> GenshinStatusModel:
     if status.is_character_map():
         pass
     else:
@@ -68,6 +70,7 @@ async def load_characters(status:GenshinStatusModel, interaction: discord.Intera
             interaction=interaction, cmd="/genshinstat get 画像生成 非公開エラー")
         raise
     return status
+
 
 async def get_profile(uid, interaction: discord.Interaction):
 
@@ -95,6 +98,8 @@ async def get_profile(uid, interaction: discord.Interaction):
                            cmd="/genshinstat get プロフィールロード完了")
 
 # get_profileを実行するボタン
+
+
 class GetProfileButton(discord.ui.Button):
     def __init__(self, uid: int, style=discord.ButtonStyle.green, label='プロフィール画像', **kwargs):
         self.uid = uid
@@ -102,6 +107,7 @@ class GetProfileButton(discord.ui.Button):
 
     async def callback(self, interaction: discord.Interaction):
         await get_profile(uid=self.uid, interaction=interaction)
+
 
 class DeleteButton(discord.ui.Button):
     def __init__(self, user_id: int, style=discord.ButtonStyle.red, label='メッセージ削除', **kwargs):
@@ -114,8 +120,9 @@ class DeleteButton(discord.ui.Button):
         else:
             await interaction.response.send_message(content="他人のメッセージは削除できません", ephemeral=True)
 
+
 class RegisterRankingButton(discord.ui.Button):
-    def __init__(self, user_id: int, status:GenshinStatusModel, name:str, style=discord.ButtonStyle.blurple, label='ランキングに登録', **kwargs):
+    def __init__(self, user_id: int, status: GenshinStatusModel, name: str, style=discord.ButtonStyle.blurple, label='ランキングに登録', **kwargs):
         self.user_id = user_id
         self.status = status
         self.name = name
@@ -123,12 +130,13 @@ class RegisterRankingButton(discord.ui.Button):
 
     async def callback(self, interaction: discord.Interaction):
         if self.user_id == interaction.user.id:
-            ranking.post_write(uid=self.status.uid, name=self.name)
+            await ranking.post_write(uid=self.status.uid, name=self.name)
         else:
             await interaction.response.send_message(content="他人のメッセージは操作できません", ephemeral=True)
 
+
 class ScoreTypeSelecter(discord.ui.Select):
-    def __init__(self, status:GenshinStatusModel) -> None:
+    def __init__(self, status: GenshinStatusModel) -> None:
         super().__init__(placeholder="ビルドタイプを選択してください。")
 
         self.add_option(label="攻撃力基準",
@@ -171,7 +179,8 @@ class ScoreTypeSelecter(discord.ui.Select):
         embed.set_image(url="attachment://Loading.gif")
         await interaction.response.edit_message(content=None, embed=embed, view=None, file=discord.File("Image/Loading.gif", filename='Loading.gif'))
         data = await self.status.get_generate_image(chacacter_index=self.status.character_index)
-        data = data.image_to_discord(character_index=self.status.character_index)
+        data = data.image_to_discord(
+            character_index=self.status.character_index)
         await interaction.edit_original_response(
             content=None,
             embed=data[1],
@@ -180,7 +189,7 @@ class ScoreTypeSelecter(discord.ui.Select):
 
 
 class ImageTypeSelecter(discord.ui.Select):
-    def __init__(self, status:GenshinStatusModel) -> None:
+    def __init__(self, status: GenshinStatusModel) -> None:
         super().__init__(placeholder="画像生成タイプを選択してください。")
 
         self.add_option(label=ImageTypeEnums.DEFAULT.value[1],
@@ -197,7 +206,8 @@ class ImageTypeSelecter(discord.ui.Select):
         embed.set_image(url="attachment://Loading.gif")
         await interaction.response.edit_message(content=None, embed=embed, view=None, file=discord.File("Image/Loading.gif", filename='Loading.gif'))
         data = await self.status.get_generate_image(chacacter_index=self.status.character_index)
-        data = data.image_to_discord(character_index=self.status.character_index)
+        data = data.image_to_discord(
+            character_index=self.status.character_index)
         await interaction.edit_original_response(
             content=None,
             embed=data[1],
@@ -206,7 +216,7 @@ class ImageTypeSelecter(discord.ui.Select):
 
 
 class CharacterSelectButton(discord.ui.Button):
-    def __init__(self, label, button_data, status:GenshinStatusModel):
+    def __init__(self, label, button_data, status: GenshinStatusModel):
         super().__init__(style=discord.ButtonStyle.gray, label=label)
         self.button_data = button_data
         self.status = status
