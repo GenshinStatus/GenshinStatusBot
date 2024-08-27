@@ -3,6 +3,8 @@ class Help:
         self.name: str = data['name']
         self.emoji: str = data['emoji']
         self.description: str = data['description']
+        self.content: str = data['content']
+        self.value: str = data['value']
 
 class Config:
     def __init__(self, data) -> None:

@@ -17,21 +17,58 @@ HELP_LIST:
   - name: "メインコマンド"
     emoji: "📰"
     description: "原神ステータスを確認できます。"
+    content: "このbotのメインとなるコマンドです。"
+    value: "\
+        \n**・/genshinstat get**\nプロフィール画像とキャラのビルド画像を作成します。UIDリスト機能で、自分のUIDを登録しておくと簡単に使えます。\
+        \n**・/status**\n/genshinstat getのコマンド名を短縮したものです。機能は全く同じです。\
+    "
   - name: "UIDリストコマンド"
     emoji: "📚"
     description: "忘れがちなUIDを保存してくれるコマンドです。"
+    content: "UIDを管理するコマンドです。"
+    value: "\
+        \n**・/uidlist get**\n登録され、公開設定が「公開」になっているUIDがここに表示されます。\
+        \n**・/uidlist control**\n登録したUIDを管理するパネルを表示します。UIDの登録や削除、公開設定の切り替えもここからできます。\
+    "
   - name: "祈願コマンド"
     emoji: "✨"
-    description: "いわゆるガチャシミュレーターです。"
+    description: "いわゆるガチャシミュレーターです。天井もユーザーごとにカウントされています。"
+    content: "いわゆるガチャシミュレーターです。"
+    value: "\
+        \n**・/wish character**\n原神のガチャ排出時に表示されるイラストを検索します。\
+        \n**・/wish get**\n原神のガチャを引きます。\
+        "
   - name: "便利コマンド"
     emoji: "🧰"
     description: "今日の日替わり秘境など"
+    content: "botを活用する上で覚えておきたいコマンドたちです。"
+    value: "\
+        \n**・/genbot help**\n迷ったらこちらから確認しよう。\
+        \n**・/genbot today**\n今日の日替わり秘境（天賦本や武器突破素材）や、デイリー更新まであと何分？を表示！\
+        \n**・/genbot report**\nバグ・不具合報告はこちらからよろしくお願いいたします...\
+        \n**・/genbot event**\n原神のイベントを確認できます。\
+        \n**・/genbot code**\nワンボタンで原神報酬コードを使いたい方にどうぞっ！\
+    "
   - name: "聖遺物スコア計算コマンド"
     emoji: "🧮"
     description: "スコアを簡単に計算します"
+    content: "聖遺物スコア計算を簡単にしてくれるコマンドです。"
+    value: "\
+        \n**・/artifact get**\n会心率基準で簡単に計算してくれます。数値はコマンド実行時に入力します。\
+        \n**・/artifact get_detail**\nHP基準や防御力基準など、より詳細に設定して計算します。\
+    "
   - name: "通知コマンド"
     emoji: "📢"
     description: "樹脂などが溢れる前に通知します"
+    content: "樹脂が溢れないように通知してくれるコマンドです。"
+    value: "\
+        \n**・/notification resin**\n現在の樹脂量を入力することで、溢れる前に通知します。\
+    "
   - name: "設定コマンド"
     emoji: "⚙"
     description: "通知チャンネルなどを設定します"
+    content: "各種設定するコマンドです。サーバー管理者限定です。"
+    value: "\
+        \n**・/setting channel**\n樹脂通知をするチャンネルを設定します。\
+        \n**・/setting ephemeral**\nコマンドの実行履歴が他人に表示させるか選択します。ビルド画像などを共有したい場合はオンにしてください。\
+    "
