@@ -2,22 +2,19 @@ import discord
 from discord.ui import Select, View, Button
 from discord.ext import commands, tasks
 from discord import Option, SlashCommandGroup
+from aiohttp import client_exceptions
 import lib.sql as SQL
 import cogs.uidlist as uidlist
 from lib.log_output import log_output, log_output_interaction
 import view.genshin_view as genshin_view
 from model.user_data_model import GenshinStatusModel
 
-MESSAGES = {
-    500: "サーバーで未知のエラーが発生しました。\nアップデートの影響により、新キャラクターや新武器等にまだ対応していないものが含まれている可能性があります。\nサポートサーバーをご確認ください。",
-    435: "UIDのフォーマットが間違っています。\n半角数字で入力してください。",
-    436: "入力されたものが存在するUIDではありません。\nもう一度確認してやり直してください。",
-    437: "ゲームメンテナンスやアップデートの影響により\nEnka.network（ビルドデータを取得するサービス）が停止している状態です。\nしばらくお待ちください。\n※Bot運営チームはこれについて確認ぐらいしか取れないです。\n詳しくはEnkaのTwitterを確認してください。\nhttps://twitter.com/EnkaNetwork",
-    438: "処理が追いついていません。\nしばらくしても解決しない場合は、開発者に対してコンタクトをとってください。",
-    439: "Enka.network（ビルドデータを取得するサービス）のサーバーにエラーが発生しています。\n詳しくはEnkaのTwitterを確認してください。\nhttps://twitter.com/EnkaNetwork",
-    440: "Enka.network（ビルドデータを取得するサービス）サーバーの一時停止中です。\nしばらくお待ちください。\n※開発者はこれについて確認ぐらいしか取れないです。\n詳しくはEnkaのTwitterを確認してください。\nhttps://twitter.com/EnkaNetwork",
-    441: "Enka.network（ビルドデータを取得するサービス）のサーバーに原因不明のエラーが発生しています。\nしばらくお待ちください。\n※原神ステータスBotの運営チームはこれについて確認ぐらいしか取れないです。\n詳しくはEnkaNetworkのTwitterを確認してください。\nhttps://twitter.com/EnkaNetwork"
-}
+from repository.config import CONFIG
+from repository.icons import Icons
+from main import logger
+import view.embeds as embeds
+
+MESSAGES = CONFIG.image_error
 
 async def load_profile(status:GenshinStatusModel, uid, interaction: discord.Interaction) -> GenshinStatusModel:
     try:

@@ -13,3 +13,4 @@ class Config:
         self.debug_server: str = data['DEBUG_SERVER']
         self.cogs_list: list[str] = data['COGS_LIST']
         self.help_list: list[Help] = [Help(i) for i in data['HELP_LIST']]
+        self.image_error: dict[int, str] = data['IMAGE_ERROR']
