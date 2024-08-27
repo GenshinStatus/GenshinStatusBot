@@ -1,0 +1,7 @@
+.env
+.vscode
+picture
+*.pyc
+/lib/artifacter
+fonts
+image/*

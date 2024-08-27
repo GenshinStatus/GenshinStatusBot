@@ -1,0 +1,37 @@
+VERSION: "2.0.0"
+DEBUG: false
+
+DEBUG_SERVER: "1014396342380015666"
+
+COGS_LIST: 
+ - 'genshin'
+ - 'wish'
+ - 'genbot'
+ - 'uidlist'
+ - 'artifact'
+ - 'notification'
+ - 'setting'
+ - 'status'
+
+HELP_LIST: 
+  - name: "メインコマンド"
+    emoji: "📰"
+    description: "原神ステータスを確認できます。"
+  - name: "UIDリストコマンド"
+    emoji: "📚"
+    description: "忘れがちなUIDを保存してくれるコマンドです。"
+  - name: "祈願コマンド"
+    emoji: "✨"
+    description: "いわゆるガチャシミュレーターです。"
+  - name: "便利コマンド"
+    emoji: "🧰"
+    description: "今日の日替わり秘境など"
+  - name: "聖遺物スコア計算コマンド"
+    emoji: "🧮"
+    description: "スコアを簡単に計算します"
+  - name: "通知コマンド"
+    emoji: "📢"
+    description: "樹脂などが溢れる前に通知します"
+  - name: "設定コマンド"
+    emoji: "⚙"
+    description: "通知チャンネルなどを設定します"
