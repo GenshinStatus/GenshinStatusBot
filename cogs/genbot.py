@@ -11,8 +11,8 @@ import google.calendar as calendar
 import main
 import time
 import lib.sql as sql
-from repository.config import CONFIG
 
+from repository.config import CONFIG
 from repository.icons import Icons
 from main import logger
 import view.embeds as embeds
@@ -64,17 +64,17 @@ class TodayEmbed(embeds.Embed):
         # 明日の5時
         daily = int(getTime.daily.timestamp() - time.time())
         result = f"約{daily//3600}時間{daily%3600//60}分"
-        embed.add_field(inline=False, name="<:genshin_commission:1277933144816750612>  デイリー更新まで",
+        embed.add_field(inline=False, name=f"{Icons.props.Commission}  デイリー更新まで",
                         value=f"```ansi\n[33mあと{result}[0m```")
         # 明日の1時
         hoyo = int(getTime.hoyo.timestamp() - time.time())
         result = f"約{hoyo//3600}時間{hoyo%3600//60}分"
-        embed.add_field(inline=False, name="<:icon_hoyolab:1277929826304524319>  HoYoLabログインボーナス更新まで",
+        embed.add_field(inline=False, name=f"{Icons.tools.HOYOLAB}  HoYoLabログインボーナス更新まで",
                         value=f"[ログインボーナスを受け取る](https://t.co/MnjUZfg7Dn)\n```ansi\n[33mあと{result}[0m```\n")
         # 曜日取得
         weekly = int(getTime.weekly.timestamp() - time.time())
         result = f"約{weekly//86400}日{weekly%86400//3600}時間{weekly%86400%3600//60}分"
-        embed.add_field(inline=False, name="<:genshin_weekboss:1277931455460282379>  週ボス等リセットまで",
+        embed.add_field(inline=False, name=f"{Icons.props.WeekBoss}  週ボス等リセットまで",
                         value=f"```ansi\n[33mあと{result}[0m```")
         return embed
 
