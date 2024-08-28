@@ -4,8 +4,8 @@ from discord.ext import commands, tasks
 from discord.commands import Option, OptionChoice, SlashCommandGroup
 from repository.icons import Icons
 from main import logger
-
 import view.embeds as embeds
+
 import lib.sql as sql
 
 MAIN_OPTION = {
