@@ -84,7 +84,7 @@ async def get_profile(uid, interaction: discord.Interaction):
     status = await status.get_profile_image()
     data = status.profile_to_discord()
     view = View(timeout=300, disable_on_timeout=True)
-    view = status.get_character_button(view=view)
+    view = status.get_character_selecter(view=view)
     await interaction.edit_original_response(content=None, view=view, embed=data[1], file=data[0])
     log_output_interaction(interaction=interaction,
                            cmd="/genshinstat get プロフィールロード完了")

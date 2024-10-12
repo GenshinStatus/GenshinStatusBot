@@ -91,7 +91,7 @@ async def get_profile(uid, interaction: discord.Interaction):
     status = await status.get_profile_image()
     data = status.profile_to_discord()
     view = View(timeout=300, disable_on_timeout=True)
-    view = status.get_character_button(view=view)
+    view.add_item(CharacterSelecter(status))
     view.add_item(DeleteButton(user_id=interaction.user.id))
     await interaction.edit_original_message(content=None, view=view, embed=data[1], file=data[0])
     log_output_interaction(interaction=interaction,
@@ -214,19 +214,25 @@ class ImageTypeSelecter(discord.ui.Select):
             file=data[0],
             view=self.status.get_status_image_view(user_id=interaction.user.id))
 
-
-class CharacterSelectButton(discord.ui.Button):
-    def __init__(self, label, button_data, status: GenshinStatusModel):
-        super().__init__(style=discord.ButtonStyle.gray, label=label)
-        self.button_data = button_data
+class CharacterSelecter(discord.ui.Select):
+    def __init__(self, status: GenshinStatusModel) -> None:
+        super().__init__(placeholder="キャラクターを選択")
         self.status = status
+        self.button_data = []
+    
+        for name, character_id in status.character_map.items():
+            self.button_data.append(character_id)
+            self.add_option(
+                label=name, value=str(character_id)
+            )
 
     async def callback(self, interaction: discord.Interaction):
+        print(self.button_data[int(self.values[0])])
         embed = LoadingEmbed(description="画像を生成中")
         embed.set_image(url="attachment://Loading.gif")
         await interaction.response.edit_message(content=None, embed=embed, view=None, file=discord.File("Image/Loading.gif", filename='Loading.gif'))
-        data = await self.status.get_generate_image(chacacter_index=int(self.button_data[self.label]))
-        data = data.image_to_discord(int(self.button_data[self.label]))
+        data = await self.status.get_generate_image(chacacter_index=int(self.values[0]))
+        data = data.image_to_discord(int(self.values[0]))
         await interaction.edit_original_response(
             content=None,
             embed=data[1],
